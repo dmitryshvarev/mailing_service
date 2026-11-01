@@ -3,7 +3,7 @@ name = "mailing-service"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Your Name",email = "you@example.com"}
+    {name = "Dmitry Shvarev",email = "dima.dreadman@gmail.cйom"}
 ]
 requires-python = ">=3.12"
 dependencies = [
