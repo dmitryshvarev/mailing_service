@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -12,6 +14,7 @@ class Client(models.Model):
     modified_date = models.DateTimeField(auto_now=True, verbose_name='дата изменения')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
     is_active = models.BooleanField(default=True, verbose_name='активность')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
     def __str__(self):
         return f'{self.surname} {self.name[0]}. {self.patronymic[0]}.({self.email})'
@@ -27,6 +30,7 @@ class Message(models.Model):
     subject = models.CharField(max_length=150, **NULLABLE, verbose_name='тема')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     modified_date = models.DateTimeField(auto_now=True, verbose_name='дата изменения')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
     def __str__(self):
         return f'{self.title} {self.text}'
@@ -75,6 +79,7 @@ class Schedule(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='активна')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     modified_date = models.DateTimeField(auto_now=True, verbose_name='дата изменения')
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
     def __str__(self):
         return f'{self.message.title} - {self.start_date} - {self.end_date}'
